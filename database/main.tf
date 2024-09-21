@@ -18,7 +18,7 @@ locals {
 resource "aws_security_group" "rds_sg" {
   name        = "rds-postgres-sg"
   description = "Allow PostgreSQL access"
-  vpc_id      = "vpc-0b631c226edb3000c" 
+  vpc_id      = "<vpc>" 
 
   ingress {
     from_port   = 5432
