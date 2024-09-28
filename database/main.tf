@@ -16,15 +16,15 @@ locals {
 }
 
 resource "aws_security_group" "rds_sg" {
-  name        = "rds-postgres-sg"
-  description = "Allow PostgreSQL access"
-  vpc_id      = "vpc-0b631c226edb3000c" 
+  name        = "rds-mysql-sg"
+  description = "Allow MySQL access"
+  vpc_id      = "vpc-0b631c226edb3000c"
 
   ingress {
-    from_port   = 5432
-    to_port     = 5432
+    from_port   = 3306
+    to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] 
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
@@ -35,20 +35,20 @@ resource "aws_security_group" "rds_sg" {
   }
 
   tags = {
-    Name = "rds-postgres-sg"
+    Name = "rds-mysql-sg"
   }
 }
 
-resource "aws_db_instance" "postgres" {
+resource "aws_db_instance" "mysql" {
   allocated_storage    = 20
   storage_type         = "gp2"
-  engine               = "postgres"
-  engine_version       = "16.3"
+  engine               = "mysql"
+  engine_version       = "8.0"
   instance_class       = "db.t3.micro"
   db_name              = "dogrestaurantdb"
   username             = local.db_credentials.username
   password             = local.db_credentials.password
-  parameter_group_name = "postgres163"
+  parameter_group_name = "default.mysql8.0"
   skip_final_snapshot  = true
 
   # Associa o Security Group à instância do RDS
