@@ -18,7 +18,7 @@ locals {
 resource "aws_security_group" "rds_sg" {
   name        = "rds-mysql-sg"
   description = "Allow MySQL access"
-  vpc_id      = "vpc-0b631c226edb3000c"
+  vpc_id      = <vpc>
 
   ingress {
     from_port   = 3306
